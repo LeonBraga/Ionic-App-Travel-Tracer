@@ -83,7 +83,7 @@ export class GruposPage implements OnInit {
 
 
   exibirDetalhes() {
-    console.log('ID do grupo selecionado: ', this.grupoSelecionado);
+    console.log('Grupo selecionado: ', this.grupoSelecionado);
     this.participantes = this.grupoSelecionado.participantes;
   }
 }

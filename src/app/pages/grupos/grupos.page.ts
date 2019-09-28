@@ -14,11 +14,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class GruposPage implements OnInit {
 
   private grupos: Observable<Grupo[]>;
+  private detalhesGrupo: Observable<Grupo>;
   private novoGrupo: Grupo = {
     nome: '',
     participantes: []
   };
   private novoGrupoNome: string;
+  public grupoSelecionado;
+  public participantes: any[];
 
   constructor(
     private grupoService: GruposService,
@@ -76,5 +79,11 @@ export class GruposPage implements OnInit {
       message: msg,
       duration: 2000
     }).then(toast => toast.present());
+  }
+
+
+  exibirDetalhes() {
+    console.log('ID do grupo selecionado: ', this.grupoSelecionado);
+    this.participantes = this.grupoSelecionado.participantes;
   }
 }

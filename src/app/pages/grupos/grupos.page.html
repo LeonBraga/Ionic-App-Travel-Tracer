@@ -15,13 +15,15 @@
     <ion-list-header>Selecione o grupo de viagem ou cadastre um novo grupo</ion-list-header>
     <ion-item>
       <ion-label>Meus grupos</ion-label>
-      <ion-select placeholder="Ver grupos" okText="OK" cancelText="Cancelar">
-        <ion-select-option value="teste" *ngFor="let grupo of (grupos | async)">{{ grupo.nome }}</ion-select-option>
+      <ion-select placeholder="Ver grupos" okText="OK" cancelText="Cancelar" [(ngModel)]="grupoSelecionado"
+        name="selecionarGrupo" (ionChange)="exibirDetalhes()">
+        <ion-select-option *ngFor="let grupo of (grupos | async)" [value]="grupo">{{ grupo.nome }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
 
-  <ion-card>
+  <div>
     <p>
       Detalhes do grupo aqui
     </p>
@@ -37,6 +39,15 @@
     <p>
       botao para cadastrar novo grupo no fim da pagina
     </p>
+  </div>
+
+  <ion-card *ngFor="let participante of participantes">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
+      </ion-avatar>
+      <ion-label>{{ participante }}</ion-label>
+    </ion-item>
   </ion-card>
 
 </ion-content>

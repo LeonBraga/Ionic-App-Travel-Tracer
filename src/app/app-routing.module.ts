@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'idea-list', loadChildren: './pages/idea-list/idea-list.module#IdeaListPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'registro', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
+  { path: 'grupos', loadChildren: './pages/grupos/grupos.module#GruposPageModule' },
 ];
 
 @NgModule({

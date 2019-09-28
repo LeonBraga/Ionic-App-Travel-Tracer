@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Grupos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="presentAlert();">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-list-header>Selecione o grupo de viagem ou cadastre um novo grupo</ion-list-header>
+    <ion-item>
+      <ion-label>Meus grupos</ion-label>
+      <ion-select placeholder="Ver grupos" okText="OK" cancelText="Cancelar">
+        <ion-select-option value="teste" *ngFor="let grupo of (grupos | async)">{{ grupo.nome }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-card>
+    <p>
+      Detalhes do grupo aqui
+    </p>
+    <p>
+      Participantes e opcao de remover e adicionar participantes
+    </p>
+    <p>
+      link para gastos cadastrados
+    </p>
+    <p>
+      link para calculo de gastos atuais do grupo
+    </p>
+    <p>
+      botao para cadastrar novo grupo no fim da pagina
+    </p>
+  </ion-card>
+
+</ion-content>

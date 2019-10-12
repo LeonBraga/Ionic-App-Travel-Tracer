@@ -2,9 +2,10 @@ import { LoginService, User } from 'src/app/services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { GruposService, Grupo } from 'src/app/api/grupos.service';
 import { Observable } from 'rxjs';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AddGastoModalPage } from '../add-gasto-modal/add-gasto-modal.page';
 
 @Component({
   selector: 'app-grupos',
@@ -18,7 +19,8 @@ export class GruposPage implements OnInit {
     public alertController: AlertController,
     private toastCtrl: ToastController,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public modalCtrl: ModalController
   ) {}
 
   private usuarios: Observable<User[]>;
@@ -111,4 +113,19 @@ export class GruposPage implements OnInit {
 
     this.grupoService.updateGrupo(grupo, this.participantes);
   }
+
+  async gastoAdd(usuario) {
+
+    console.log("participante recebido em gastoADD: ", usuario);
+
+    const modal = await this.modalCtrl.create({
+      component: AddGastoModalPage,
+      componentProps: {
+        data: "Exemplo de entrada"
+      }
+    });
+    await modal.present();
+    modal.onDidDismiss().then( res => alert(JSON.stringify(res)));
+  }
+
 }

@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'idea-list', loadChildren: './pages/idea-list/idea-list.module#IdeaListPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: 'registro', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
-  { path: 'grupos', loadChildren: './pages/grupos/grupos.module#GruposPageModule' },
+  { path: 'grupos', loadChildren: './pages/grupos/grupos.module#GruposPageModule' },  { path: 'add-gasto-modal', loadChildren: './pages/add-gasto-modal/add-gasto-modal.module#AddGastoModalPageModule' },
+
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,15 +12,26 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import {
+  AngularFirestoreModule,
+  FirestoreSettingsToken
+} from '@angular/fire/firestore';
+
+import { AddGastoModalPage } from './pages/add-gasto-modal/add-gasto-modal.page';
+
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-  AngularFireModule.initializeApp(environment.firebase),
-  AngularFirestoreModule
+  declarations: [AppComponent, AddGastoModalPage],
+  entryComponents: [ AddGastoModalPage ],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
+  exports: [AddGastoModalPage],
   providers: [
     StatusBar,
     SplashScreen,

@@ -11,45 +11,45 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list>
-    <ion-list-header>Selecione o grupo de viagem ou cadastre um novo grupo</ion-list-header>
-    <ion-item>
-      <ion-label>Meus grupos</ion-label>
-      <ion-select placeholder="Ver grupos" okText="OK" cancelText="Cancelar" [(ngModel)]="grupoSelecionado"
-        name="selecionarGrupo" (ionChange)="exibirDetalhes()">
-        <ion-select-option *ngFor="let grupo of (grupos | async)" [value]="grupo">{{ grupo.nome }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+  <ion-card>
+    <ion-list>
+      <ion-list-header>Selecione o grupo de viagem ou cadastre um novo grupo</ion-list-header>
+      <ion-item>
+        <ion-label>Meus grupos</ion-label>
+        <ion-select placeholder="Ver grupos" okText="OK" cancelText="Cancelar" [(ngModel)]="grupoSelecionado"
+          name="selecionarGrupo" (ionChange)="exibirDetalhes()">
+          <ion-select-option *ngFor="let grupo of (grupos | async)" [value]="grupo"> {{ grupo.nome }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <!-- <ion-text [className]="grupos.length ? 'active' : 'inactive'">Nenhum participante encontrado, adicione novos abaixo</ion-text> -->
+    </ion-list>
 
-  <div>
-    <p>
-      Detalhes do grupo aqui
-    </p>
-    <p>
-      Participantes e opcao de remover e adicionar participantes
-    </p>
-    <p>
-      link para gastos cadastrados
-    </p>
-    <p>
-      link para calculo de gastos atuais do grupo
-    </p>
-    <p>
-      botao para cadastrar novo grupo no fim da pagina
-    </p>
-  </div>
-
-  <ion-card *ngFor="let participante of participantes">
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
-      </ion-avatar>
-      <ion-label>{{ participante }}</ion-label>
-    </ion-item>
+    <ion-card *ngFor="let participante of participantes">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
+        </ion-avatar>
+        <ion-label>{{ participante.login }}</ion-label>
+      </ion-item>
+    </ion-card>
   </ion-card>
 
-  //implementar search, add, excluir usuario em lista
+  <ion-card>
+    <ion-toolbar>
+      <ion-searchbar type="text" [(ngModel)]="searchterm" (ionChange)="search($event)"></ion-searchbar>
+      <ion-list>
+        <ion-item *ngFor="let nome of resultados">
+          {{ nome.login }}
+          <ion-button shape="round" fill="outline" size="small" slot="end"
+            (click)="cadastrarEmGrupo(grupoSelecionado, nome);">+</ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-toolbar>
+  </ion-card>
+  <!-- 
+    [Para fazer] excluir usuario em grupo.
+    [Se der tempo] definir adm e convidado em grupo. 
+  -->
 
 </ion-content>

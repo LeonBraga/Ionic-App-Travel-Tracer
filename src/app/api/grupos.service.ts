@@ -59,20 +59,18 @@ export class GruposService {
   // addGrupo(grupo: Grupo): Promise<DocumentReference> {
   //   return this.grupoCollection.add(grupo);
   // }
-  addGrupo(grupoNome: Grupo): Promise<DocumentReference> {
+  addGrupo(grupoNome: Grupo, ): Promise<DocumentReference> {
     return this.grupoCollection.add(grupoNome);
   }
 
+  updateGrupo(grupo: Grupo, participantesNovos): Promise<void> {
+    // let grupoRef = this.grupoCollection.doc(grupo.id);
+    // console.log("grupoRef", grupoRef);
 
 
-  updateGrupo(grupo: Grupo): Promise<void> {
-    return this.grupoCollection
-      .doc(grupo.id)
-      .update({
-        id: grupo.id,
-        nome: grupo.nome,
-        participantes: [{ idUsuario: grupo.participantes }]
-      });
+    return this.grupoCollection.doc(grupo.id).update({
+      'participantes' : participantesNovos,
+    });
   }
 
   deleteGrupo(id: string): Promise<void> {

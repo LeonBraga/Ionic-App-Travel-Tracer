@@ -13,7 +13,7 @@ export interface Grupo {
   nome: string;
   participantes: [
     {
-      idUsuario: string;
+      id: string;
     }
   ];
 }
@@ -56,21 +56,16 @@ export class GruposService {
       );
   }
 
-  // addGrupo(grupo: Grupo): Promise<DocumentReference> {
-  //   return this.grupoCollection.add(grupo);
-  // }
-  addGrupo(grupoNome: Grupo, ): Promise<DocumentReference> {
+  addGrupo(grupoNome: Grupo ): Promise<DocumentReference> {
     return this.grupoCollection.add(grupoNome);
   }
 
   updateGrupo(grupo: Grupo, participantesNovos): Promise<void> {
-    // let grupoRef = this.grupoCollection.doc(grupo.id);
-    // console.log("grupoRef", grupoRef);
-
 
     return this.grupoCollection.doc(grupo.id).update({
       'participantes' : participantesNovos,
     });
+
   }
 
   deleteGrupo(id: string): Promise<void> {

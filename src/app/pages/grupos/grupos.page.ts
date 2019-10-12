@@ -1,15 +1,15 @@
-import { LoginService, User } from "src/app/services/login.service";
-import { Component, OnInit } from "@angular/core";
-import { GruposService, Grupo } from "src/app/api/grupos.service";
-import { Observable, Subject } from "rxjs";
-import { AlertController } from "@ionic/angular";
-import { ToastController } from "@ionic/angular";
-import { Router, ActivatedRoute } from "@angular/router";
+import { LoginService, User } from 'src/app/services/login.service';
+import { Component, OnInit } from '@angular/core';
+import { GruposService, Grupo } from 'src/app/api/grupos.service';
+import { Observable } from 'rxjs';
+import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-grupos",
-  templateUrl: "./grupos.page.html",
-  styleUrls: ["./grupos.page.scss"]
+  selector: 'app-grupos',
+  templateUrl: './grupos.page.html',
+  styleUrls: ['./grupos.page.scss']
 })
 export class GruposPage implements OnInit {
   constructor(
@@ -25,7 +25,10 @@ export class GruposPage implements OnInit {
   private grupos: Observable<Grupo[]>;
   private detalhesGrupo: Observable<Grupo>;
   private novoGrupo: Grupo;
-  private novoGrupoNome: string;
+  private novoGrupoNome: Grupo = {
+    nome: '',
+    participantes: []
+  };
   public grupoSelecionado;
   public participantes: any[];
 
@@ -42,37 +45,37 @@ export class GruposPage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: "Novo grupo",
+      header: 'Novo grupo',
       inputs: [
         {
-          name: "nomeGrupo",
-          type: "text",
-          placeholder: "Nome do grupo"
+          name: 'nomeGrupo',
+          type: 'text',
+          placeholder: 'Nome do grupo'
         }
       ],
       buttons: [
         {
-          text: "Cancel",
-          role: "cancel",
-          cssClass: "secondary",
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
           handler: () => {
-            console.log("Confirm Cancel");
+            console.log('Confirm Cancel');
           }
         },
         {
-          text: "Salvar",
+          text: 'Salvar',
           handler: alertData => {
-            console.log("Nome do novo grupo:", alertData.nomeGrupo);
-            this.novoGrupo.nome = alertData.nomeGrupo;
-            console.log("Var nvGrupo: ", this.novoGrupo);
+            console.log('Nome do novo grupo:', alertData.nomeGrupo);
+            this.novoGrupoNome.nome = alertData.nomeGrupo;
+            console.log('Var nvGrupo: ', this.novoGrupoNome);
 
-            this.grupoService.addGrupo(this.novoGrupo).then(
+            this.grupoService.addGrupo(this.novoGrupoNome).then(
               () => {
-                this.router.navigateByUrl("/grupos");
-                this.showToast("Criado Grupo, adicone participantes!");
+                this.router.navigateByUrl('/grupos');
+                this.showToast('Criado Grupo, selecione em "Meus Grupos" e adicione participantes!');
               },
               err => {
-                this.showToast("Houve um problema adicionando o grupo :(");
+                this.showToast('Houve um problema adicionando o grupo :(');
               }
             );
           }
@@ -92,7 +95,6 @@ export class GruposPage implements OnInit {
   }
 
   exibirDetalhes() {
-    console.log("retorno resultados", this.resultados);
     this.participantes = this.grupoSelecionado.participantes;
   }
 

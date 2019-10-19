@@ -12,8 +12,9 @@ import { AlertController } from '@ionic/angular';
 export class RegistroPage implements OnInit {
 
   novoUsuario: User = {
-    login: '',
-    password: ''
+    email: '',
+    password: '',
+    name:''
   };
 
   isSubmit: boolean = false;
@@ -34,11 +35,13 @@ export class RegistroPage implements OnInit {
   async register(user: User) {
     try {
       var hasValidUser = await this.fAuth.auth.createUserWithEmailAndPassword(
-        user.login,
+        user.email,
         user.password
       );
+    
       if (hasValidUser) {
         console.log("Successfully registered!");
+        this.loginService.addUser(this.novoUsuario)
         this.showSuccess()
       }
     } catch (err) {

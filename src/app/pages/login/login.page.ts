@@ -13,9 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private loginService: LoginService,
-    private router: Router,
-    private fAuth: AngularFireAuth) { }
+  constructor(private router: Router, private fAuth: AngularFireAuth) { }
 
   ngOnInit() {
   }
@@ -29,6 +27,7 @@ export class LoginPage implements OnInit {
 
       if (hasValidLogin) {
         console.log("Successfully logged in!");
+        this.router.navigate(['/grupos'])
       }
 
     } catch (err) {

@@ -1,13 +1,14 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
-import { map, take } from 'rxjs/operators';
+import { map, take} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 export interface User {
   id?: string;
-  login: string;
+  email: string;
   password: string;
+  name:string;
 }
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,19 @@ export class LoginService {
 
   getUsers(): Observable<User[]> {
     return this.users; 
+  }
+
+  getUser(id: string): Observable<User> {
+    return this.userCollection.doc<User>(id).valueChanges().pipe(
+      take(1),
+      map(user => {
+        user.id = id;
+        return user;
+      })
+    );
+  }
+
+  addUser(user: User): Promise<DocumentReference> {
+    return this.userCollection.add(user);
   }
 }

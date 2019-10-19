@@ -8,12 +8,17 @@
   <form (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="floating">Email<ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [(ngModel)]="novoUsuario.login" name="login" type="email"></ion-input>
+      <ion-input [(ngModel)]="novoUsuario.email" name="email" type="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nome<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input [(ngModel)]="novoUsuario.name" name="name" type="text" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Senha <ion-text color="danger">*</ion-text></ion-label>
-      <ion-input [(ngModel)]="novoUsuario.password" name="senha" type="password" ></ion-input>
+      <ion-input [(ngModel)]="novoUsuario.password" name="password" type="password" minlength="6" maxlength="16"></ion-input>
     </ion-item>
     
     <ion-button block color="primary" type="submit">

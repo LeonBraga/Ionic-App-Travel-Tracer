@@ -18,6 +18,7 @@ import {
 } from '@angular/fire/firestore';
 
 import { AddGastoModalPage } from './pages/add-gasto-modal/add-gasto-modal.page';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { AddGastoModalPage } from './pages/add-gasto-modal/add-gasto-modal.page'
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   exports: [AddGastoModalPage],
   providers: [

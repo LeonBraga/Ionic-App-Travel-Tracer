@@ -7,9 +7,8 @@ import { Observable } from 'rxjs';
 export interface User {
   id?: string;
   login: string;
-  senha: string;
+  password: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -32,28 +31,6 @@ export class LoginService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.users;
-  }
-
-  getUser(id: string): Observable<User> {
-    return this.userCollection.doc<User>(id).valueChanges().pipe(
-      take(1),
-      map(user => {
-        user.id = id;
-        return user;
-      })
-    );
-  }
-
-  addUser(user: User): Promise<DocumentReference> {
-    return this.userCollection.add(user);
-  }
-
-  updateUser(user: User): Promise<void> {
-    return this.userCollection.doc(user.id).update({ login: user.login, senha: user.senha });
-  }
-
-  deleteUser(id: string): Promise<void> {
-    return this.userCollection.doc(id).delete();
+    return this.users; 
   }
 }

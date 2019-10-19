@@ -29,7 +29,7 @@ export class GruposPage implements OnInit {
   private novoGrupo: Grupo;
   private novoGrupoNome: Grupo = {
     nome: '',
-    participantes: []
+    participantes: [ { id: ''}]
   };
   public grupoSelecionado;
   public participantes: any[];

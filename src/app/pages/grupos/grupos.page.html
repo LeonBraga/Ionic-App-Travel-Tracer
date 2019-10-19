@@ -51,7 +51,7 @@
         <ion-item *ngFor="let result of resultados">
           {{ result.name }}
           <ion-button shape="round" fill="outline" size="small" slot="end"
-            (click)="cadastrarEmGrupo(grupoSelecionado, result);">+</ion-button>
+            (click)="cadastrarEmGrupo(grupoSelecionado, result.name);">+</ion-button>
         </ion-item>
       </ion-list>
     </ion-toolbar>

@@ -24,7 +24,6 @@ export class GruposPage implements OnInit {
   ) {}
 
   private usuarios: Observable<User[]>;
-  private grupos: Observable<Grupo[]>;
   private detalhesGrupo: Observable<Grupo>;
   private novoGrupo: Grupo;
   private novoGrupoNome: Grupo = {
@@ -33,7 +32,8 @@ export class GruposPage implements OnInit {
   };
   public grupoSelecionado;
   public participantes: any[];
-
+  
+  grupos: Observable<Grupo[]>;
   todosUsuarios;
   searchterm: string;
   resultados;
@@ -108,9 +108,8 @@ export class GruposPage implements OnInit {
   }
 
   cadastrarEmGrupo(grupo, novoUsuario) {
-    delete novoUsuario.senha;
+    console.log(novoUsuario)
     this.participantes.push(novoUsuario);
-
     this.grupoService.updateGrupo(grupo, this.participantes);
   }
 

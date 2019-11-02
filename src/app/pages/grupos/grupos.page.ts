@@ -98,12 +98,15 @@ export class GruposPage implements OnInit {
 
   exibirDetalhes() {
     this.participantes = this.grupoSelecionado.participantes;
+    console.log(this.participantes);
+    
   }
 
   search($event) {
+    console.log(this.todosUsuarios);
     this.resultados = this.todosUsuarios.filter(
       user =>
-        user.login.toLowerCase().indexOf(this.searchterm.toLowerCase()) !== -1
+        user.name.toLowerCase().indexOf(this.searchterm.toLowerCase()) !== -1
     );
   }
 

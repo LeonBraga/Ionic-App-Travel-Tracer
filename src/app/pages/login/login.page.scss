@@ -1,0 +1,44 @@
+.primary-color {
+    --background: #007c7c;
+    color: #000000;
+}
+
+.secondary-color {
+    --background: #000000;
+    color: white;
+}
+
+.suport-color {
+    --background: #00baba;
+}
+
+.main-header {
+    --background: #007c7c;
+    color: #fff;
+    font-family: caviar;
+}
+
+.main-body {
+    background-color: #007c7c;
+}
+.inside {
+    font-family: caviar;
+    // border-top-left-radius: 25px;
+    // border-top-right-radius: 25px;
+    border-radius: 25px;
+    background-color: #007c7c;
+}
+
+.container {
+    background-color: #007c7c;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.login-banner {
+    color: #00baba;
+}
+
+.background-suporte {
+    background-color: #00baba;
+}

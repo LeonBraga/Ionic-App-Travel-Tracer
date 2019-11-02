@@ -1,0 +1,44 @@
+.primary-color {
+    --background: #007c7c;
+    color: #000000;
+}
+
+.secondary-color {
+    --background: #000000;
+    color: white;
+}
+
+.suport-color {
+    --background: #00baba;
+}
+
+.main-header {
+    --background: #003e3e;
+    color: #fff;
+    font-family: caviar;
+}
+
+.main-body {
+    background-color: #007c7c;
+}
+
+.grupos-card {
+
+    border: 1px solid #fff;
+    
+    &__header {
+        font-family: roboto;
+    }
+
+    &__users {
+        font-family: roboto;
+    }
+}
+
+.user-list {
+    border-bottom-left-radius: 25px;
+}
+
+.bottom-m65 {
+    margin-bottom: 65px;
+}

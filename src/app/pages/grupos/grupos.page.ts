@@ -37,6 +37,7 @@ export class GruposPage implements OnInit {
   todosUsuarios;
   searchterm: string;
   resultados;
+  resultadosFiltrados;
 
   ngOnInit() {
     this.grupos = this.grupoService.getGrupos();
@@ -103,12 +104,20 @@ export class GruposPage implements OnInit {
     console.log(this.participantes);
   }
 
+  initializeSearch(){
+    this.resultadosFiltrados = this.resultados;
+  }
+
   search($event) {
-    if (!this.searchterm) {
+    this.initializeSearch();
+
+    if (!this.searchterm || this.searchterm.trim() === '') {
+      this.resultadosFiltrados = null;
       return;
     }
 
-    this.resultados = this.todosUsuarios.filter(usuarioFiltrado => {
+
+    this.resultadosFiltrados = this.todosUsuarios.filter(usuarioFiltrado => {
       if (usuarioFiltrado.email && this.searchterm) {
         if (
           usuarioFiltrado.name

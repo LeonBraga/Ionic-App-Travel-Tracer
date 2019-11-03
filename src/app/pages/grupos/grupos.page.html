@@ -45,10 +45,10 @@
 
   <ion-card class="bottom-m65">
     <ion-toolbar>
-      <ion-searchbar type="text" [(ngModel)]="searchterm" (ionChange)="search($event)"></ion-searchbar>
+      <ion-searchbar type="text" [(ngModel)]="searchterm" (ionChange)="search($event)" placeholder="Buscar usuário por e-mail"></ion-searchbar>
       <ion-list>
-        <ion-item *ngFor="let result of resultados" class="user-list">
-          {{ result.name }}
+        <ion-item *ngFor="let result of resultadosFiltrados" class="user-list">
+          {{ result.email }}
           <ion-button color="fb" shape="round" fill="outline" size="small" slot="end"
             (click)="cadastrarEmGrupo(grupoSelecionado, result.name);">+</ion-button>
         </ion-item>

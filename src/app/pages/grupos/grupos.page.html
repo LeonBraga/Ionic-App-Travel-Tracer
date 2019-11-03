@@ -11,7 +11,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-card class="grupos-card"> 
+  <ion-card class="grupos-card">
     <ion-list>
       <ion-item>
         <ion-label class="grupos-card__header">Meus grupos</ion-label>
@@ -45,14 +45,21 @@
 
   <ion-card class="bottom-m65">
     <ion-toolbar>
-      <ion-searchbar type="text" [(ngModel)]="searchterm" (ionChange)="search($event)" placeholder="Buscar usuário por e-mail"></ion-searchbar>
-      <ion-list>
-        <ion-item *ngFor="let result of resultadosFiltrados" class="user-list">
-          {{ result.email }}
-          <ion-button color="fb" shape="round" fill="outline" size="small" slot="end"
-            (click)="cadastrarEmGrupo(grupoSelecionado, result.name);">+</ion-button>
-        </ion-item>
-      </ion-list>
+      <ion-searchbar type="text" [(ngModel)]="searchterm" (ionChange)="search($event)"
+        placeholder="Buscar usuário por e-mail"></ion-searchbar>
+
+      <ion-item *ngFor="let result of resultadosFiltrados" class="user-list">
+        <ion-avatar>
+          <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
+        </ion-avatar>
+        <ion-label>
+          <h3 class="result-name">{{result.name}}</h3>
+          <p class="result-email">{{result.email}}</p>
+        </ion-label>
+        <ion-button color="fb" shape="round" fill="outline" size="small" slot="end"
+          (click)="cadastrarEmGrupo(grupoSelecionado, result.name);">+</ion-button>
+      </ion-item>
+
     </ion-toolbar>
   </ion-card>
   <!-- 

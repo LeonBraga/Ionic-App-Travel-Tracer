@@ -138,12 +138,12 @@ export class GruposPage implements OnInit {
   }
 
   async gastoAdd(usuario) {
-    console.log("participante recebido em gastoADD: ", usuario);
-
+    // console.log("participante recebido em gastoADD: ", usuario);
     const modal = await this.modalCtrl.create({
       component: AddGastoModalPage,
       componentProps: {
-        data: "Exemplo de entrada"
+        group: this.participantes,
+        register: usuario
       }
     });
     await modal.present();

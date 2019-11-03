@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="main-header">
     <ion-buttons slot="end">
       <ion-button (click)="fechar()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -9,7 +9,45 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
+<ion-content class="main-body">
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>Card Title</ion-card-title>
+    </ion-card-header>
+
+    <ion-item>
+      <ion-label>
+        <p>Pagante</p>
+        <h2>{{userReceived.login}}</h2>
+      </ion-label>
+      <ion-avatar slot="end">
+        <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
+      </ion-avatar>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">
+        <ion-icon name="wallet"></ion-icon> Valor:
+      </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label>PARTICIPANTES</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let user of groupReceived">
+        <ion-label>{{user.login}}</ion-label>
+        <ion-checkbox slot="start" class="ion-color ion-color-primary md" checked></ion-checkbox>
+        <ion-avatar slot="end">
+          <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
+        </ion-avatar>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 
 </ion-content>

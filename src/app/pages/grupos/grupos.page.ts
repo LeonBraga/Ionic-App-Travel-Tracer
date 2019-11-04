@@ -143,7 +143,8 @@ export class GruposPage implements OnInit {
       component: AddGastoModalPage,
       componentProps: {
         group: this.participantes,
-        register: usuario
+        register: usuario,
+        groupName: this.grupoSelecionado.nome
       }
     });
     await modal.present();

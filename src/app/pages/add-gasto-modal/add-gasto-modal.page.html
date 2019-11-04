@@ -14,7 +14,7 @@
 
     <ion-card-header color="fc">
       <ion-card-subtitle>Grupo</ion-card-subtitle>
-      <ion-card-title>Nome Grupo</ion-card-title>
+      <ion-card-title>{{groupName}}</ion-card-title>
     </ion-card-header>
 
     <ion-item>
@@ -35,7 +35,6 @@
     </ion-item>
 
 
-
     <ion-list>
       <ion-list-header>
         <ion-label>PARTICIPANTES</ion-label>
@@ -43,9 +42,9 @@
       <ion-item *ngFor="let user of groupReceived; let i = index">
         <ion-label>
           <h2>{{user.login}}</h2>
-          <p>A pagar: R${{mediumCost}}</p>
+          <p [hidden]="!participantsArray[i]">A pagar: R${{mediumCost}}</p>
         </ion-label>
-        <ion-checkbox slot="start" class="ion-color ion-color-primary md" checked (ionChange)="shareParticipants($event)" value={{i}}></ion-checkbox>
+        <ion-checkbox slot="start" class="ion-color ion-color-primary md" checked (ionChange)="shareParticipants($event)" value={{i}} name={{i}}></ion-checkbox>
         <ion-avatar slot="end">
           <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
         </ion-avatar>

@@ -11,6 +11,7 @@ export class AddGastoModalPage implements OnInit {
 
   public groupReceived: any;
   public userReceived: any;
+  public groupName: any;
   public participantsArray: boolean[] = [];
   public mediumCost = 0;
   public result;
@@ -23,7 +24,8 @@ export class AddGastoModalPage implements OnInit {
   ) {
     this.groupReceived = navParams.get("group");
     this.userReceived = navParams.get("register");
-    console.log(this.groupReceived);
+    this.groupName = navParams.get("groupName");
+    console.log(this.groupName);
   }
 
   async fechar() {
@@ -36,9 +38,7 @@ export class AddGastoModalPage implements OnInit {
 
   shareParticipants(event) {
     console.log(event.detail);
-    this.participantsArray[event.detail.value] = !this.participantsArray[
-      event.detail.value
-    ];
+    this.participantsArray[event.detail.value] = !this.participantsArray[event.detail.value];
     this.calculateShares();
   }
 

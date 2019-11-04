@@ -12,9 +12,9 @@
 <ion-content class="main-body">
   <ion-card>
 
-    <ion-card-header>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-      <ion-card-title>Card Title</ion-card-title>
+    <ion-card-header color="fc">
+      <ion-card-subtitle>Grupo</ion-card-subtitle>
+      <ion-card-title>Nome Grupo</ion-card-title>
     </ion-card-header>
 
     <ion-item>
@@ -28,10 +28,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">
-        <ion-icon name="wallet"></ion-icon> Valor:
+      <ion-label position="floating" >
+        <ion-icon name="wallet"></ion-icon> R$
       </ion-label>
-      <ion-input></ion-input>
+      <ion-input id="declaredCost" inputmode="decimal" type="number" step="0.1" min="0" (ionChange)="shareCost($event)" [(ngModel)]="sharedValue"></ion-input>
     </ion-item>
 
 
@@ -40,14 +40,21 @@
       <ion-list-header>
         <ion-label>PARTICIPANTES</ion-label>
       </ion-list-header>
-      <ion-item *ngFor="let user of groupReceived">
-        <ion-label>{{user.login}}</ion-label>
-        <ion-checkbox slot="start" class="ion-color ion-color-primary md" checked></ion-checkbox>
+      <ion-item *ngFor="let user of groupReceived; let i = index">
+        <ion-label>
+          <h2>{{user.login}}</h2>
+          <p>A pagar: R${{mediumCost}}</p>
+        </ion-label>
+        <ion-checkbox slot="start" class="ion-color ion-color-primary md" checked (ionChange)="shareParticipants($event)" value={{i}}></ion-checkbox>
         <ion-avatar slot="end">
           <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
         </ion-avatar>
       </ion-item>
     </ion-list>
   </ion-card>
+
+  <ion-button shape="round" color="fd" class="ion-float-right">
+    <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+  </ion-button>
 
 </ion-content>

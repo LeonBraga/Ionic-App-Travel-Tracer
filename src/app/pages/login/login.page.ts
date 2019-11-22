@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthService } from '../../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { CredentialsDTO } from 'src/app/model/credentials.dto';
 
 
 
@@ -13,25 +14,34 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private fAuth: AngularFireAuth) { }
+  creds : CredentialsDTO = {
+    email: "",
+    password: ""
+  };
+
+  constructor(private router: Router, private service: AuthService) { }
 
   ngOnInit() {
   }
 
-  async login(form: NgForm) {
-    try {
-      var hasValidLogin = await this.fAuth.auth.signInWithEmailAndPassword(
-        form.value.email,
-        form.value.password,
-      );
-
-      if (hasValidLogin) {
-        console.log("Successfully logged in!");
+  ionViewDidEnter() {
+    this.service.refreshToken()
+      .subscribe(response => {
+        this.service.successfulLogin(response.headers.get('Authorization'));
         this.router.navigate(['/grupos'])
-      }
+      },
+      error => {});  
+  }
 
-    } catch (err) {
-      console.error(err);
-    }
+
+  login(form: NgForm) {
+    this.creds.email = form.value.email
+    this.creds.password = form.value.password
+    this.service.authenticate(this.creds)
+      .subscribe(response => {
+        this.service.successfulLogin(response.headers.get('Authorization'));
+        this.router.navigate(['/grupos'])
+      },
+      error => {});    
   }
 }

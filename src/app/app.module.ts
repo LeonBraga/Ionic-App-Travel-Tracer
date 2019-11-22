@@ -21,6 +21,11 @@ import {
 
 import { AddGastoModalPage } from './pages/add-gasto-modal/add-gasto-modal.page';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AuthService } from './services/auth.service';
+import { StorageService } from './services/storage.service';
+import { HttpClientModule } from '@angular/common/http';
+import { GroupService } from './services/groups.service';
+import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -28,6 +33,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
   entryComponents: [ AddGastoModalPage ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     CommonModule,
     FormsModule,
     IonicModule.forRoot(),
@@ -40,6 +46,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthService,
+    StorageService,
+    GroupService,
+    UserService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],

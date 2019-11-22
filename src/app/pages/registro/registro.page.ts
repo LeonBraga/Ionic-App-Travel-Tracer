@@ -1,8 +1,9 @@
 // import { LoginService, User } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AlertController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
+import { UserDTO } from 'src/app/model/user.dto';
 
 @Component({
   selector: 'app-registro',
@@ -11,67 +12,57 @@ import { AlertController } from '@ionic/angular';
 })
 export class RegistroPage implements OnInit {
 
-  // novoUsuario: User = {
-  //   email: '',
-  //   password: '',
-  //   name:''
-  // };
+  novoUsuario: UserDTO = {
+    email: '',
+    password: '',
+    name: ''
+  };
 
   isSubmit: boolean = false;
 
-  // constructor(private loginService: LoginService,
-  //   private router: Router,
-  //   public alertController: AlertController,
-  //   private fAuth: AngularFireAuth) { }
+  constructor(private userService: UserService,
+    private router: Router,
+    public alertController: AlertController) { }
 
   ngOnInit() {
 
   }
 
-  // onSubmit() {
-  //   this.register(this.novoUsuario);
-  // }
+  onSubmit() {
+    this.register(this.novoUsuario);
+  }
 
-  // async register(user: User) {
-  //   try {
-  //     var hasValidUser = await this.fAuth.auth.createUserWithEmailAndPassword(
-  //       user.email,
-  //       user.password
-  //     );
-    
-  //     if (hasValidUser) {
-  //       console.log("Successfully registered!");
-  //       this.loginService.addUser(this.novoUsuario)
-  //       this.showSuccess()
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     this.showError()
-  //   }
-  // }
+  register(userDTO: UserDTO) {
+    this.userService.signUp(userDTO).subscribe(
+      response => {
+          this.showSuccess()
+      },
+      error => this.showError()
+    )
+  }
 
-  // async showSuccess() {
-  //   const alert = await this.alertController.create({
-  //     header: 'Cadastrado com sucesso!',
-  //     message: 'Efetue login para acessar o App',
-  //     buttons: ['OK']
-  //   });
+  async showSuccess() {
+    const alert = await this.alertController.create({
+      header: 'Cadastrado com sucesso!',
+      message: 'Efetue login para acessar o App',
+      buttons: ['OK']
+    });
 
-  //   await alert.present();
-  //   this.go();
-  // }
+    await alert.present();
+    this.goToLogin();
+  }
 
-  // async showError() {
-  //   const alert = await this.alertController.create({
-  //     header: 'Opa algo deu errado.',
-  //     message: 'Por favor insira um email valido e uma senha de no minimo 6 caracteres.',
-  //     buttons: ['OK']
-  //   });
+  async showError() {
+    const alert = await this.alertController.create({
+      header: 'Opa algo deu errado.',
+      message: 'Por favor insira um email valido e uma senha de no minimo 6 caracteres.',
+      buttons: ['OK']
+    });
 
-  //   await alert.present();
-  // }
+    await alert.present();
+  }
 
-  // go() {
-  //   this.router.navigateByUrl('/login');
-  // }
+  goToLogin() {
+    this.router.navigateByUrl('/login');
+  }
 }

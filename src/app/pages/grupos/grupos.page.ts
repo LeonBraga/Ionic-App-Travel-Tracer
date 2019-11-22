@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GroupService } from "../../services/groups.service";
 import { Observable } from "rxjs";
-import { AlertController, ModalController } from "@ionic/angular";
+import { AlertController, ModalController, Events } from "@ionic/angular";
 import { ToastController } from "@ionic/angular";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AddGastoModalPage } from "../add-gasto-modal/add-gasto-modal.page";
@@ -11,6 +11,9 @@ import { StorageService } from 'src/app/services/storage.service';
 import { Group } from 'src/app/model/group';
 import { LocalUser } from 'src/app/model/localuser';
 import { AuthService } from 'src/app/services/auth.service';
+import { map } from 'rxjs/operators';
+import { GroupDTO } from 'src/app/model/group.dto';
+
 
 @Component({
   selector: "app-grupos",
@@ -23,7 +26,15 @@ export class GruposPage implements OnInit {
 
   groups: Group[]
   participants: User[]
+  allUsers: Observable<User[]>
   data: Object
+
+  groupDTO: GroupDTO = {
+    userId: 0,
+    group: {
+      name: ""
+    }
+  }
 
   constructor(
     private groupService: GroupService,
@@ -36,123 +47,107 @@ export class GruposPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public modalCtrl: ModalController
   ) {
-    
-   }
 
-
-
+  }
 
 
 
   ngOnInit() {
+    this.reloadDataUser();
+  }
+
+  private reloadDataUser() {
     this.userService.getUserByEmail(this.localUser.email).subscribe(
       response => {
+        this.groupDTO.userId = response['id']
         this.groups = response['groups'];
-        
       }
     )
-    
   }
 
 
   ionViewDidLeave() {
-    console.log("desconectou o cara")
     this.logout()
   }
 
 
-  // async presentAlert() {
-  //   const alert = await this.alertController.create({
-  //     header: "Novo grupo",
-  //     inputs: [
-  //       {
-  //         name: "nomeGrupo",
-  //         type: "text",
-  //         placeholder: "Nome do grupo"
-  //       }
-  //     ],
-  //     buttons: [
-  //       {
-  //         text: "Cancel",
-  //         role: "cancel",
-  //         cssClass: "secondary",
-  //         handler: () => {
-  //           console.log("Confirm Cancel");
-  //         }
-  //       },
-  //       {
-  //         text: "Salvar",
-  //         handler: alertData => {
-  //           console.log("Nome do novo grupo:", alertData.nomeGrupo);
-  //           this.novoGrupoNome.nome = alertData.nomeGrupo;
-  //           console.log("Var nvGrupo: ", this.novoGrupoNome);
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: "Novo grupo",
+      inputs: [
+        {
+          name: "nomeGrupo",
+          type: "text",
+          placeholder: "Nome do grupo"
+        }
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {
+            console.log("Confirm Cancel");
+          }
+        },
+        {
+          text: "Salvar",
+          handler: alertData => {
+            this.groupDTO.group.name = alertData.nomeGrupo
+            this.groupService.createGroup(this.groupDTO).subscribe(
+              () => {
+                this.reloadDataUser();
+                this.router.navigateByUrl("/grupos");
+                this.showToast(
+                  'Criado Grupo, selecione em "Meus Grupos" e adicione participantes!'
+                );
+              },
+              error => this.showToast("Houve um problema adicionando o grupo" + error)
+            )
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
-  //           this.grupoService.addGrupo(this.novoGrupoNome).then(
-  //             () => {
-  //               this.router.navigateByUrl("/grupos");
-  //               this.showToast(
-  //                 'Criado Grupo, selecione em "Meus Grupos" e adicione participantes!'
-  //               );
-  //             },
-  //             err => {
-  //               this.showToast("Houve um problema adicionando o grupo :(");
-  //             }
-  //           );
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   await alert.present();
-  // }
+  showToast(msg) {
+    this.toastCtrl
+      .create({
+        message: msg,
+        duration: 2000
+      })
+      .then(toast => toast.present());
+  }
 
-  // showToast(msg) {
-  //   this.toastCtrl
-  //     .create({
-  //       message: msg,
-  //       duration: 2000
-  //     })
-  //     .then(toast => toast.present());
-  // }
+  showGroupDetails(groupId) {
+    this.reloadDataGroup(groupId);
+  }
 
-  exibirDetalhes(groupId) {
+  private reloadDataGroup(groupId) {
     this.groupService.getGroup(groupId).subscribe(
       response => {
         this.participants = response["users"]
-        console.log(this.participants)
       })
   }
 
-  // initializeSearch(){
-  //   this.resultadosFiltrados = this.resultados;
-  // }
+  initializeSearch() {
+    let partipantsIds = this.participants.map(participant => participant.id);
+    this.allUsers = this.userService.getAllUsers().pipe(map((users: User[]) => users.filter(user => !partipantsIds.includes(user.id))))
 
-  // search($event) {
-  //   this.initializeSearch();
+  }
 
-  //   if (!this.searchterm || this.searchterm.trim() === '') {
-  //     this.resultadosFiltrados = null;
-  //     return;
-  //   }
+  search($event) {
+    this.initializeSearch()
+  }
 
-
-  //   this.resultadosFiltrados = this.todosUsuarios.filter(usuarioFiltrado => {
-  //     if (usuarioFiltrado.email && this.searchterm) {
-  //       if (
-  //         usuarioFiltrado.name
-  //           .toLowerCase()
-  //           .indexOf(this.searchterm.toLowerCase()) > -1
-  //       ) {
-  //         return true;
-  //       }
-  //       return false;
-  //     }
-  //   });
-  // }
-
-  cadastrarEmGrupo(grupo, novoUsuario) {
-    console.log(novoUsuario);
-    // this.participantes.push(novoUsuario);
-    // this.grupoService.updateGrupo(grupo, this.participantes);
+  addUserInGroup(groupId, newUserId) {
+    this.groupService.addUser(groupId, newUserId).subscribe(
+      response => {
+        this.reloadDataGroup(groupId);
+      },
+      error => console.log(error)
+    )
   }
 
 
@@ -163,17 +158,27 @@ export class GruposPage implements OnInit {
     })
   }
 
-  // async gastoAdd(usuario) {
-  //   // console.log("participante recebido em gastoADD: ", usuario);
-  //   const modal = await this.modalCtrl.create({
-  //     component: AddGastoModalPage,
-  //     componentProps: {
-  //       group: this.participantes,
-  //       register: usuario,
-  //       groupName: this.grupoSelecionado.nome
-  //     }
-  //   });
-  //   await modal.present();
-  //   modal.onDidDismiss().then(res => alert(JSON.stringify(res)));
-  // }
+  async gastoAdd(user: User, group: Group) {
+    const modal = await this.modalCtrl.create({
+      component: AddGastoModalPage,
+      componentProps: {
+        participants: this.participants,
+        register: user,
+        groupName: group.name,
+        groupId: group.id
+      }
+    });
+
+    modal.onDidDismiss()
+      .then((data) => {
+        console.log(data)
+    })
+       
+    await modal.present();
+  }
+
+
+  goToExtract() {
+    this.router.navigateByUrl("/extract")
+  }
 }

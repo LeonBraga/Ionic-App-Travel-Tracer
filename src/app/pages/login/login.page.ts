@@ -16,7 +16,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class LoginPage implements OnInit {
 
-  creds : CredentialsDTO = {
+  creds: CredentialsDTO = {
     email: "",
     password: ""
   };
@@ -28,12 +28,15 @@ export class LoginPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.service.refreshToken()
-      .subscribe(response => {
-        this.service.successfulLogin(response.headers.get('Authorization'));
-        this.router.navigate(['/grupos'])
-      },
-      error => {});  
+    if (this.storageService.getLocalUser) {
+      this.service.refreshToken()
+        .subscribe(response => {
+          console.log(response)
+          this.service.successfulLogin(response.headers.get('Authorization'));
+          this.router.navigate(['/grupos'])
+        },
+          error => { console.log(error) });
+    }
   }
 
 
@@ -45,6 +48,6 @@ export class LoginPage implements OnInit {
         this.service.successfulLogin(response.headers.get('Authorization'));
         this.router.navigate(['/grupos'])
       },
-      error => {});    
+        error => { });
   }
 }

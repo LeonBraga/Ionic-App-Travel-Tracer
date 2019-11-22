@@ -26,6 +26,7 @@ import { StorageService } from './services/storage.service';
 import { HttpClientModule } from '@angular/common/http';
 import { GroupService } from './services/groups.service';
 import { UserService } from './services/user.service';
+import { AuthInterceptorProvider } from './interceptor/auth-interceptor';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { UserService } from './services/user.service';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthInterceptorProvider,
     AuthService,
     StorageService,
     GroupService,

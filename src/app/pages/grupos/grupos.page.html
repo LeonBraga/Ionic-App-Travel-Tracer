@@ -24,7 +24,7 @@
       <!-- <ion-text [className]="grupos.length ? 'active' : 'inactive'">Nenhum participante encontrado, adicione novos abaixo</ion-text> -->
     </ion-list>
 
-    <ion-card *ngFor="let participant of participants" class="grupos-card__users">
+    <ion-card *ngFor="let participant of participants"  class="grupos-card__users">
       <ion-item>
         <ion-avatar slot="start">
           <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
@@ -48,23 +48,24 @@
       <ion-searchbar type="text" [(ngModel)]="searchterm" (ionChange)="search($event)"
         placeholder="Buscar usuário por e-mail"></ion-searchbar>
 
-      <ion-item *ngFor="let result of resultadosFiltrados" class="user-list">
+      <ion-item *ngFor="let participant of participants" class="user-list">
         <ion-avatar>
           <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
         </ion-avatar>
         <ion-label>
-          <h3 class="result-name">{{result.name}}</h3>
-          <p class="result-email">{{result.email}}</p>
+          <h3 class="result-name">{{participant.name}}</h3>
+          <p class="result-email">{{participant.email}}</p>
         </ion-label>
         <ion-button color="fb" shape="round" fill="outline" size="small" slot="end"
-          (click)="cadastrarEmGrupo(grupoSelecionado, result.name);">+</ion-button>
+          (click)="cadastrarEmGrupo(group.id, participant.id);">+</ion-button>
       </ion-item>
 
     </ion-toolbar>
   </ion-card>
-  <!-- 
-    [Para fazer] excluir usuario em grupo.
-    [Se der tempo] definir adm e convidado em grupo. 
-  -->
+  
+
+  <ion-button (click)="logout()">
+    Logout
+  </ion-button>
 
 </ion-content>

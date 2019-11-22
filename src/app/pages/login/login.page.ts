@@ -4,6 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { CredentialsDTO } from 'src/app/model/credentials.dto';
+import { StorageService } from 'src/app/services/storage.service';
+
 
 
 
@@ -19,9 +21,10 @@ export class LoginPage implements OnInit {
     password: ""
   };
 
-  constructor(private router: Router, private service: AuthService) { }
+  constructor(private router: Router, private service: AuthService, private storageService: StorageService) { }
 
   ngOnInit() {
+    console.log(this.storageService.getLocalUser)
   }
 
   ionViewDidEnter() {

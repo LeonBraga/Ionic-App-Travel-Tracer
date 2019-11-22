@@ -30,6 +30,7 @@
     "cordova-android": "8.1.0",
     "core-js": "^2.5.4",
     "firebase": "^6.6.2",
+    "ionic-angular": "^3.9.9",
     "rxjs": "^6.5.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

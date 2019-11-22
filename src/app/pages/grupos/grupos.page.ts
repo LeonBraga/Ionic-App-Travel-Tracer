@@ -5,11 +5,12 @@ import { AlertController, ModalController } from "@ionic/angular";
 import { ToastController } from "@ionic/angular";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AddGastoModalPage } from "../add-gasto-modal/add-gasto-modal.page";
-import { User} from '../../model/user'
+import { User } from '../../model/user'
 import { UserService } from 'src/app/services/user.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Group } from 'src/app/model/group';
 import { LocalUser } from 'src/app/model/localuser';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: "app-grupos",
@@ -17,36 +18,46 @@ import { LocalUser } from 'src/app/model/localuser';
   styleUrls: ["./grupos.page.scss"]
 })
 export class GruposPage implements OnInit {
-  
+
   localUser: LocalUser = this.storageService.getLocalUser()
 
   groups: Group[]
   participants: User[]
-  
+  data: Object
+
   constructor(
     private groupService: GroupService,
     private userService: UserService,
+    private authService: AuthService,
     private storageService: StorageService,
     public alertController: AlertController,
     private toastCtrl: ToastController,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public modalCtrl: ModalController
-  ) {}
-
-
+  ) {
     
+   }
+
+
+
 
 
 
   ngOnInit() {
-      this.userService.getUserByEmail(this.localUser.email).subscribe(
-        response => {
-          this.groups = response['groups'];
-        }
-      )
-      
-     
+    this.userService.getUserByEmail(this.localUser.email).subscribe(
+      response => {
+        this.groups = response['groups'];
+        
+      }
+    )
+    
+  }
+
+
+  ionViewDidLeave() {
+    console.log("desconectou o cara")
+    this.logout()
   }
 
 
@@ -104,13 +115,11 @@ export class GruposPage implements OnInit {
   // }
 
   exibirDetalhes(groupId) {
-    console.log(groupId)
-      this.groupService.getGroup(groupId).subscribe(
-        response => {
-          console.log(response)
-          this.participants = response['users']
-        }
-      )
+    this.groupService.getGroup(groupId).subscribe(
+      response => {
+        this.participants = response["users"]
+        console.log(this.participants)
+      })
   }
 
   // initializeSearch(){
@@ -140,11 +149,19 @@ export class GruposPage implements OnInit {
   //   });
   // }
 
-  // cadastrarEmGrupo(grupo, novoUsuario) {
-  //   console.log(novoUsuario);
-  //   this.participantes.push(novoUsuario);
-  //   this.grupoService.updateGrupo(grupo, this.participantes);
-  // }
+  cadastrarEmGrupo(grupo, novoUsuario) {
+    console.log(novoUsuario);
+    // this.participantes.push(novoUsuario);
+    // this.grupoService.updateGrupo(grupo, this.participantes);
+  }
+
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login'], {
+      replaceUrl: true
+    })
+  }
 
   // async gastoAdd(usuario) {
   //   // console.log("participante recebido em gastoADD: ", usuario);

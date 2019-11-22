@@ -7,7 +7,7 @@ import { API_CONFIG } from '../config/api.config';
 export class UserService {
 
     headers = new HttpHeaders().set('Content-Type', 'application/json')
-    .set('authorization', 'Bearer ' + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3YWduZXIucm9kcmlndWVzQGdtYWlsLmNvbSIsImV4cCI6MTU3NDM4NjEyNn0.DB5grMgnoJZNpcQ5awp73aRCnzd_ZDG0POioE-t0gvUZeBhDXUZsY1eneFz28TJ9T2ttkinAE1vwjKu2cq4nCQ");
+    .set('authorization', 'Bearer ' + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3YWduZXIucm9kcmlndWVzQGdtYWlsLmNvbSIsImV4cCI6MTU3NDM5MzM2Mn0.RbojgxiIgY_l4SlorEQplclzgfyGaSRNUwKTfSw3jgHDUqgH3wnLj1NDrixbYHeJe62QfVMhDKa_hE1APNR2kw");
    
 
     constructor(

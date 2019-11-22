@@ -30,7 +30,7 @@ export class AuthService {
 
     refreshToken() {
         return this.http.post(
-            `${API_CONFIG.baseUrl}/auth/refresh_token`, 
+            `${API_CONFIG.baseUrl}/auth/refreshToken`, 
             {},
             {
                 observe: 'response',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GroupService } from "../../services/groups.service";
 import { Observable } from "rxjs";
-import { AlertController, ModalController, Events } from "@ionic/angular";
+import { AlertController, ModalController, NavController } from "@ionic/angular";
 import { ToastController } from "@ionic/angular";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AddGastoModalPage } from "../add-gasto-modal/add-gasto-modal.page";
@@ -44,6 +44,7 @@ export class GruposPage implements OnInit {
     public alertController: AlertController,
     private toastCtrl: ToastController,
     private router: Router,
+    private navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
     public modalCtrl: ModalController
   ) {
@@ -178,7 +179,9 @@ export class GruposPage implements OnInit {
   }
 
 
-  goToExtract() {
-    this.router.navigateByUrl("/extract")
+ async goToExtract(groupId) {
+    await this.navCtrl.navigateForward('grupos/extract',{
+      queryParams: {groupId: groupId}
+    })
   }
 }

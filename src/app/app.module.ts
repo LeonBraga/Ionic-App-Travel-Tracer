@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -29,6 +29,7 @@ import { UserService } from './services/user.service';
 import { AuthInterceptorProvider } from './interceptor/auth-interceptor';
 
 
+
 @NgModule({
   declarations: [AppComponent, AddGastoModalPage],
   entryComponents: [ AddGastoModalPage ],
@@ -52,6 +53,7 @@ import { AuthInterceptorProvider } from './interceptor/auth-interceptor';
     StorageService,
     GroupService,
     UserService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],

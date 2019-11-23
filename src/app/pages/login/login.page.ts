@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { CredentialsDTO } from 'src/app/model/credentials.dto';
 import { StorageService } from 'src/app/services/storage.service';
+import { NavController } from '@ionic/angular';
+
 
 
 
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
     password: ""
   };
 
-  constructor(private router: Router, private service: AuthService, private storageService: StorageService) { }
+  constructor(private router: Router, private service: AuthService, private storageService: StorageService,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
     console.log(this.storageService.getLocalUser)
@@ -33,7 +35,7 @@ export class LoginPage implements OnInit {
         .subscribe(response => {
           console.log(response)
           this.service.successfulLogin(response.headers.get('Authorization'));
-          this.router.navigate(['/grupos'])
+          this.navCtrl.navigateRoot('/grupos')
         },
           error => { console.log(error) });
     }
@@ -46,7 +48,7 @@ export class LoginPage implements OnInit {
     this.service.authenticate(this.creds)
       .subscribe(response => {
         this.service.successfulLogin(response.headers.get('Authorization'));
-        this.router.navigate(['/grupos'])
+        this.navCtrl.navigateRoot('/grupos')
       },
         error => { });
   }

@@ -15,23 +15,23 @@ export class GroupService {
 
     createGroup(groupDto: GroupDTO) {
         return this.http.post(
-            'http://localhost:8080/api/group/', groupDto);
+            `${API_CONFIG.baseUrl}/group/`, groupDto);
     }
 
     addUser(groupId, userId) {
         return this.http.put(
-            `http://localhost:8080/api/group/${groupId}/user/${userId}`, {});
+            `${API_CONFIG.baseUrl}/group/${groupId}/user/${userId}`, {});
     }
 
     addSpend(groupId,spendDTO: SpendDTO) {
-        return this.http.post(`${API_CONFIG.baseUrl}/api/group/${groupId}/spend`, spendDTO)
+        return this.http.post(`${API_CONFIG.baseUrl}/group/${groupId}/spend`, spendDTO)
     }
 
 
 
     getGroup(groupId) {
         return this.http.get(
-            `http://localhost:8080/api/group/${groupId}`);
+            `${API_CONFIG.baseUrl}/group/${groupId}`);
     }
 
 }

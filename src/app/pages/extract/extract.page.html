@@ -1,54 +1,45 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Extrato da Viagem</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-   <ion-content >
-  
-    <!-- <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Extrato do grupo</ion-card-subtitle>
-        <ion-card-title>{{ group.name}}</ion-card-title>
-      </ion-card-header>
-    </ion-card>
-  
-    <ion-card-title>Quem está te devendo</ion-card-title>
-    <ion-card-subtitle>Por essa viagem incrivel</ion-card-subtitle>
-  
-    <ion-list>
-      <ion-item *ngFor="let userToReceive of paymentsToReceive">
-        <ion-label>
-          <h2>O participante {{ userToReceive.name }} deve {{ payment.totalValue}}} pela atividade {{ activitySpend.name }}</h2>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  
-    <ion-card-title>Quem voce precisa pagar</ion-card-title>
-    <ion-card-subtitle>Por essa viagem incrivel</ion-card-subtitle>
-  
-    <ion-list>
-      <ion-item *ngFor="let owing of paymentsOwing">
-        <ion-label>
-          <h2>Voce deve  {{ owing.totalValue}}} pela atividade {{ activitySpend.name }}</h2>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  
-    <ion-card-title>Atividades pagas por voce</ion-card-title>
-  
-    <ion-list>
-      <ion-item *ngFor="let paid of paymentsPaid">
-        <ion-label>
-          <h2>{{ paid.name }} valor: {{ paid.totalValue }}</h2>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  
-  
+  <ion-toolbar>
+    <ion-title>Extrato da Viagem</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-body">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Extrato do grupo</ion-card-subtitle>
+      <ion-card-title>{{ tripName }}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+
+  <ion-card *ngFor="let item of activitySpends">
     <ion-item>
-      <ion-label><h2>Total gasto na viagem: {{tripTotalValue}}</h2></ion-label>
-    </ion-item> --> 
-  
-  
-  </ion-content>
+      <ion-label><h2>{{item.name}}</h2></ion-label>
+    </ion-item>
+    <ion-item *ngFor="let payment of item.paymentToReceive">
+      <ion-label><h3>O usuario {{payment.userPayer.name}} está devendo {{payment.totalValue}}
+      </h3></ion-label>
+    </ion-item>
+    <ion-item *ngFor="let payment of item.paymentOwing">
+      <ion-label><h3>Voce deve a {{payment.userReceiver.name}} o valor {{payment.totalValue}}
+      </h3></ion-label>
+    </ion-item>
+  </ion-card>
+ 
+
+  <ion-item>
+      <ion-label>
+        <h2>Total gasto por voce na viagem: {{userTripTotalSpend}}</h2>
+      </ion-label>
+    </ion-item>
+
+  <ion-item>
+    <ion-label>
+      <h2>Total gasto pelo grupo na viagem: {{tripTotalValue}}</h2>
+    </ion-label>
+  </ion-item>
+
+
+</ion-content>

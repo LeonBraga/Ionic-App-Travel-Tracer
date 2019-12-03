@@ -10,11 +10,9 @@ import { GroupService } from 'src/app/services/groups.service';
   styleUrls: ["./add-gasto-modal.page.scss"]
 })
 export class AddGastoModalPage implements OnInit {
-  // @Input() data: any;
 
   groupParticipants: User[];
   userReceived: User;
-  owingUsers: User[]
   groupName: string;
   groupId: number
   spendDTO: SpendDTO = {
@@ -41,7 +39,6 @@ export class AddGastoModalPage implements OnInit {
     this.userReceived = navParams.get("register");
     this.groupName = navParams.get("groupName");
     this.groupId = navParams.get("groupId")
-    this.owingUsers = this.groupParticipants.filter(user => user.id != this.userReceived.id)
 
   }
 
@@ -51,15 +48,12 @@ export class AddGastoModalPage implements OnInit {
   }
 
   private getCheckedValues() {
-    this.checkItens = this.owingUsers.filter(value => {
+    this.checkItens = this.groupParticipants.filter(value => {
       return value.isChecked;
     });
-
-    console.log(this.checkItens)
   }
 
   shareParticipants(event) {
-    console.log(Object.values(event.detail))
     this.participantsArray[event.detail.value] = !this.participantsArray[event.detail.value];
     this.calculateShares();
   }
@@ -69,6 +63,7 @@ export class AddGastoModalPage implements OnInit {
     this.spendDTO.price = this.sharedValue
     this.spendDTO.usersPayers.push(this.userReceived.id)
     this.checkItens.forEach(user => {
+      console.log(this.checkItens)
       this.spendDTO.usersReceivers.push(user.id)
     })
 
@@ -104,7 +99,7 @@ export class AddGastoModalPage implements OnInit {
   }
 
   ngOnInit() {
-    for (const iterator of this.owingUsers) {
+    for (const iterator of this.groupParticipants) {
       this.participantsArray.push(true);
     }
   }

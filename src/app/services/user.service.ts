@@ -15,15 +15,15 @@ export class UserService {
 
 
     getUserByEmail(email: string) {
-        return this.http.get(`http://localhost:8080/api/user/findMail?email=${email}`)
+        return this.http.get(`${API_CONFIG.baseUrl}/user/findMail?email=${email}`)
     }
 
 
     getAllUsers(): Observable<any> {
-        return this.http.get(`http://localhost:8080/api/user/`)
+        return this.http.get(`${API_CONFIG.baseUrl}/user/`)
     }
 
     signUp(userDTO: UserDTO) {
-        return this.http.post(`${API_CONFIG.baseUrl}/api/user`, userDTO)
+        return this.http.post(`${API_CONFIG.baseUrl}/user`, userDTO)
     }
 }

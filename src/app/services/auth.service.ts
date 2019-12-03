@@ -20,7 +20,7 @@ export class AuthService {
     authenticate(creds : CredentialsDTO) {
         console.log(creds)
         return this.http.post(
-           'http://localhost:8080/login', 
+           'https://travel-tracer.herokuapp.com/login', 
             creds,
             {
                 observe: 'response',

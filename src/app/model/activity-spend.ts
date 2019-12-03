@@ -1,5 +1,4 @@
 export interface ActivitySpend {
-    total: 2500.0,
-    name: string,
-    
+    total: number,
+    name: string
 }

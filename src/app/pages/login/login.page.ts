@@ -15,7 +15,7 @@ import { NavController } from '@ionic/angular';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   creds: CredentialsDTO = {
     email: "",
@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
     this.service.authenticate(this.creds)
       .subscribe(response => {
         this.service.successfulLogin(response.headers.get('Authorization'));
-        this.navCtrl.navigateRoot('/grupos')
+        this.navCtrl.navigateRoot('/grupos');
       },
         error => { });
   }

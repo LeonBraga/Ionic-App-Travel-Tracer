@@ -1,4 +1,4 @@
   
 export const API_CONFIG = {
-    baseUrl: "http://localhost:8080"
+    baseUrl: "https://travel-tracer.herokuapp.com/api"
 }

@@ -67,10 +67,6 @@ export class GruposPage implements OnInit {
   }
 
 
-  ionViewDidLeave() {
-    this.logout()
-  }
-
 
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -173,15 +169,15 @@ export class GruposPage implements OnInit {
     modal.onDidDismiss()
       .then((data) => {
         console.log(data)
-    })
-       
+      })
+
     await modal.present();
   }
 
 
- async goToExtract(groupId) {
-    await this.navCtrl.navigateForward('grupos/extract',{
-      queryParams: {groupId: groupId}
+  goToExtract(groupId) {
+    this.router.navigate(['extract'], {
+      queryParams: { groupId: groupId }
     })
   }
 }

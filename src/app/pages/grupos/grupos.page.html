@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar class="main-header">
     <ion-title>Grupos</ion-title>
+    <ion-buttons slot="end" (click)="logout()">
+      <ion-icon slot="icon-only" ios="ios-log-out" md="md-log-out"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -24,7 +27,7 @@
       <!-- <ion-text [className]="grupos.length ? 'active' : 'inactive'">Nenhum participante encontrado, adicione novos abaixo</ion-text> -->
     </ion-list>
 
-    <ion-card *ngFor="let participant of participants"  class="grupos-card__users">
+    <ion-card *ngFor="let participant of participants" class="grupos-card__users">
       <ion-item>
         <ion-avatar slot="start">
           <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
@@ -42,6 +45,13 @@
       </ion-item>
     </ion-card>
   </ion-card>
+
+    <ion-button color='fd' fill="outline" size='small' (click)="goToExtract(group.id)" class="ion-text-center ion-margin">
+      <ion-icon slot="start" ios="ios-arrow-dropright" md="md-arrow-dropright"></ion-icon>
+      ver extrato
+      <ion-icon slot="end" ios="ios-stats" md="md-stats"></ion-icon>
+    </ion-button>
+
 
   <ion-card class="bottom-m65">
     <ion-toolbar>
@@ -62,14 +72,10 @@
 
     </ion-toolbar>
   </ion-card>
-  
 
-  <ion-button (click)="logout()">
-    Logout
-  </ion-button>
 
-  <ion-button (click)="goToExtract(group.id)">
-    Extrato
-  </ion-button>
+
+
+
 
 </ion-content>

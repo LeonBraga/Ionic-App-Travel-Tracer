@@ -4,6 +4,8 @@ import { StorageService } from 'src/app/services/storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Group } from 'src/app/model/group';
 import { ActivitySpend } from 'src/app/model/activity-spend';
+import { element } from 'protractor';
+import { concat } from 'bytebuffer';
 
 
 @Component({
@@ -19,8 +21,8 @@ export class ExtractPage {
   userTripTotalSpend: number
   tripTotalValue: number
   activitySpends: ActivitySpend[]
-  paymentReceive: any[]
-  paymentFiltered: any[]
+  filteredActivitySpend: any[] = []
+  paymentFiltered: any[] = []
   email: string
 
   groupId: number
@@ -52,18 +54,20 @@ export class ExtractPage {
 
         this.activitySpends.forEach(activitySpend => {
           if (activitySpend['paymentToReceive'] !== undefined) {
-            this.paymentReceive = activitySpend['paymentToReceive']
-            console.log(this.paymentReceive)
+            this.filteredActivitySpend.push(activitySpend)
           }
         })
 
-     this.paymentFiltered = this.paymentReceive.filter(payment => {
-          let userPayerEmail = payment['userPayer']
-          return this.email !== userPayerEmail['email']
+        console.log(this.filteredActivitySpend)
+
+        this.filteredActivitySpend.filter(element => {
+          let teste =  element['paymentToReceive']
+          console.log(teste)
         })
 
-        console.log(this.paymentFiltered)
+        console.log('payments')
 
+        
 
       },
       error => {
@@ -72,9 +76,8 @@ export class ExtractPage {
 
   }
 
-  private showOnlyDebtors(email) {
-    return email != this.email
+  private showOnlyDebtors(email): Boolean {
+    return this.email !== email
   }
-
 
 }

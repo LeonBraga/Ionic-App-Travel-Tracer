@@ -24,13 +24,12 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <!-- <ion-text [className]="grupos.length ? 'active' : 'inactive'">Nenhum participante encontrado, adicione novos abaixo</ion-text> -->
     </ion-list>
 
     <ion-card *ngFor="let participant of participants" class="grupos-card__users">
       <ion-item>
         <ion-avatar slot="start">
-          <img src="https://cdn.icon-icons.com/icons2/1736/PNG/512/4043232-avatar-batman-comics-hero_113278.png">
+          <img src="../../../assets/icon/TOURIST-512 (1).png">
         </ion-avatar>
 
         <ion-label>{{ participant.name }}

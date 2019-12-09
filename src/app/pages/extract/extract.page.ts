@@ -48,6 +48,12 @@ export class ExtractPage {
         this.activitySpends = this.trip['activitySpends']
 
 
+        this.activitySpends.forEach(activitySpend => {
+          let owings = activitySpend['paymentOwing']
+           console.log(owings)
+        })
+
+
       },
       error => {
         console.log(error)

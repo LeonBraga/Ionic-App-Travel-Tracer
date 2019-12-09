@@ -1,10 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Cadastro</ion-title>
+  <ion-toolbar class="main-header">
+    <ion-title slot="start">Cadastro</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="primary-color" class="main-body">
   <form (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="floating">Email<ion-text color="danger">*</ion-text></ion-label>
@@ -21,7 +24,7 @@
       <ion-input [(ngModel)]="novoUsuario.password" name="password" type="password" minlength="6" maxlength="16"></ion-input>
     </ion-item>
     
-    <ion-button block color="primary" type="submit">
+    <ion-button block color="fa" slot="secundary" type="submit">
       Registrar
     </ion-button>
   </form>

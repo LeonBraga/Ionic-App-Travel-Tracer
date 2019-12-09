@@ -19,6 +19,8 @@ export class ExtractPage {
   userTripTotalSpend: number
   tripTotalValue: number
   activitySpends: ActivitySpend[]
+  paymentReceive: any[]
+  paymentFiltered: any[]
   email: string
 
   groupId: number
@@ -49,9 +51,18 @@ export class ExtractPage {
 
 
         this.activitySpends.forEach(activitySpend => {
-          let owings = activitySpend['paymentOwing']
-           console.log(owings)
+          if (activitySpend['paymentToReceive'] !== undefined) {
+            this.paymentReceive = activitySpend['paymentToReceive']
+            console.log(this.paymentReceive)
+          }
         })
+
+     this.paymentFiltered = this.paymentReceive.filter(payment => {
+          let userPayerEmail = payment['userPayer']
+          return this.email !== userPayerEmail['email']
+        })
+
+        console.log(this.paymentFiltered)
 
 
       },
@@ -59,6 +70,10 @@ export class ExtractPage {
         console.log(error)
       })
 
+  }
+
+  private showOnlyDebtors(email) {
+    return email != this.email
   }
 
 

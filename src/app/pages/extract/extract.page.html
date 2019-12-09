@@ -16,24 +16,17 @@
     </ion-card-header>
 
     <ion-card *ngFor="let item of activitySpends">
-        <ion-card-header color='fb' class="grupos-card__title white-border">
-          {{item.name}}
-        </ion-card-header>
-      <ion-item *ngFor="let payment of item.paymentToReceive">
+      <ion-card-header color='fb' class="grupos-card__title white-border">
+        {{item.name}}
+      </ion-card-header>
+      <ion-item *ngFor="let payment of paymentFiltered">
         <ion-label>
-          <h3>O usuario {{payment.userPayer.name}} está devendo {{payment.totalValue}}
-          </h3>
-        </ion-label>
-      </ion-item>
-      <ion-item *ngFor="let payment of item.paymentOwing">
-        <ion-label>
-          <h3>Voce deve a {{payment.userReceiver.name}} o valor {{payment.totalValue}}
-          </h3>
+          <h3>O usuario {{payment.userPayer.name}} está devendo {{payment.totalValue}}</h3>
         </ion-label>
       </ion-item>
       <ion-item *ngFor="let payment of item.paymentPaid">
         <ion-label>
-          <h3>Voce deve a {{payment.userPayer.name}} o valor {{payment.totalValue}}
+          <h3>Voce pagou o valor {{payment.totalValue}} pela atividade
           </h3>
         </ion-label>
       </ion-item>
